@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+ENV/
+
+# Next.js & Frontend Build Outputs
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Python & Backend Outputs
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database Files
+*.db
+*.sqlite3
+
+# Environment Variables & Local Configs
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System Files
+.DS_Store
+Thumbs.db
