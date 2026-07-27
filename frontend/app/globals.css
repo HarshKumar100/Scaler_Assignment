@@ -1,27 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-purple: #6547db;
-  --color-purple-light: #8b75e6;
-  --color-cream: #fffaf2;
-  --color-ink: #27272a;
+  --color-purple: #4f46e5;
+  --color-purple-light: #6366f1;
+  --color-cream: #fafafa;
+  --color-ink: #0f172a;
 }
 
 :root {
-  --ink: #27272a;
-  --cream: #fffaf2;
-  --purple: #6547db;
-  --purple-light: #8b75e6;
-  --muted: #8a8a8a;
-  --border: #e9e5df;
-  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --danger: #dc2626;
+  --ink: #0f172a;
+  --cream: #fafafa;
+  --purple: #4f46e5;
+  --purple-light: #6366f1;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --danger: #ef4444;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html, body {
@@ -32,7 +30,7 @@ html, body {
 body {
   background-color: var(--cream);
   color: var(--ink);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -264,8 +262,8 @@ body {
 }
 
 .filter-tab.active {
-  color: #0f766e;
-  background-color: #ccfbf1;
+  color: #4f46e5;
+  background-color: #eef2ff;
   font-weight: 700;
 }
 
@@ -281,8 +279,8 @@ body {
 }
 
 .search-input:focus {
-  border-color: #0f766e;
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 .create-card-dashed {
@@ -298,10 +296,10 @@ body {
 }
 
 .create-card-dashed:hover {
-  border-color: #0f766e;
-  background-color: rgba(204, 251, 241, 0.3);
+  border-color: #4f46e5;
+  background-color: rgba(238, 242, 255, 0.5);
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px -4px rgba(15, 118, 110, 0.1);
+  box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.1);
 }
 
 .sidebar-item {

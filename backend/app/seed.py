@@ -4,10 +4,8 @@ from app.database import engine, Base, SessionLocal
 from app.models import Form, Question, Response, Answer
 
 def seed_db():
-    print("Dropping all tables...")
-    Base.metadata.drop_all(bind=engine)
-    print("Creating all tables...")
-    Base.metadata.create_all(bind=engine)
+    """Insert seed data. Tables must already exist (created by main.py lifespan)."""
+    print("Seeding database...")
     
     db: Session = SessionLocal()
     

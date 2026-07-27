@@ -2,14 +2,17 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# SQLite database file path
-SQLALCHEMY_DATABASE_URL = "sqlite:///./typeform.db"
+# Database URL — reads from env var, defaults to SQLite file in backend directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR, 'typeform.db')}")
+
+# check_same_thread is only needed for SQLite
+connect_args = {}
+if DATABASE_URL.startswith("sqlite"):
+    connect_args["check_same_thread"] = False
 
 # Create the SQLAlchemy engine
-# check_same_thread is False to allow SQLite to handle requests from different threads (common in FastAPI)
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
 
 # Create a session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -27,3 +30,4 @@ def get_db():
         yield db
     finally:
         db.close()
+

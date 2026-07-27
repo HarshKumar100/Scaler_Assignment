@@ -3,7 +3,7 @@
 import { useEffect, useState, use, useRef } from 'react';
 import { api, Form, Question } from '../../../lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, AlertCircle, ArrowUp, ArrowDown, ArrowRight } from 'lucide-react';
+import { Check, AlertCircle, ArrowUp, ArrowDown, ArrowRight, CornerDownLeft } from 'lucide-react';
 
 export default function RespondentPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
@@ -153,8 +153,8 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
 
   if (!form) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center">
-        {error ? <div className="text-xl text-gray-500">{error}</div> : <div className="animate-pulse w-16 h-16 rounded-full bg-purple-200"></div>}
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        {error ? <div className="text-xl text-slate-500 font-medium">{error}</div> : <div className="animate-spin w-10 h-10 rounded-full border-3 border-indigo-200 border-t-indigo-600"></div>}
       </div>
     );
   }
@@ -168,10 +168,10 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
   const progress = currentIndex >= 0 ? Math.min(100, ((currentIndex + 1) / form.questions.length) * 100) : 0;
 
   return (
-    <div className="h-screen w-full bg-cream text-ink overflow-hidden flex flex-col font-sans selection:bg-purple-200 selection:text-purple-900">
+    <div className="h-screen w-full bg-white text-slate-900 overflow-hidden flex flex-col font-sans selection:bg-indigo-100 selection:text-indigo-900">
       {/* Progress bar */}
-      <div className="fixed top-0 left-0 h-1 bg-gray-200 w-full z-50">
-        <div className="h-full bg-[#6547db] transition-all duration-500 ease-out" style={{ width: `${progress}%` }} />
+      <div className="fixed top-0 left-0 h-1.5 bg-slate-100 w-full z-50">
+        <div className="h-full bg-indigo-600 transition-all duration-500 ease-out" style={{ width: `${progress}%` }} />
       </div>
 
       <div className="flex-1 relative flex items-center justify-center p-6 sm:p-12 md:p-24">
@@ -187,17 +187,19 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
               transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
               className="max-w-3xl w-full text-center"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-10 text-ink leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-10 text-slate-900 leading-tight">
                 {form.title}
               </h1>
               <button 
                 onClick={goToNext}
-                className="inline-flex items-center justify-center gap-3 bg-[#6547db] text-white text-lg md:text-xl font-bold py-4 px-12 rounded-xl hover:bg-[#5436c0] hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-[#6547db]/30 cursor-pointer tracking-wide"
+                className="inline-flex items-center justify-center gap-3 bg-indigo-600 text-white text-lg md:text-xl font-bold py-4 px-12 rounded-xl hover:bg-indigo-700 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 shadow-md shadow-indigo-600/20 cursor-pointer tracking-wide"
               >
                 <span>Start</span>
                 <ArrowRight size={22} />
               </button>
-              <p className="mt-4 text-sm font-medium text-gray-400">Press Enter ↵</p>
+              <p className="mt-5 text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-center gap-1">
+                Press Enter <CornerDownLeft size={14} className="opacity-70" />
+              </p>
             </motion.div>
           )}
 
@@ -213,14 +215,14 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
               className="max-w-3xl w-full"
             >
               <div className="flex items-start gap-4 md:gap-6">
-                <span className="text-2xl md:text-3xl font-bold text-[#6547db]/40 mt-1 flex-shrink-0">
-                  {currentIndex + 1} <span className="text-xl">→</span>
+                <span className="text-2xl md:text-3xl font-bold text-indigo-500/40 mt-1 flex-shrink-0 flex items-center gap-1">
+                  {currentIndex + 1} <ArrowRight size={18} className="text-indigo-400/60" />
                 </span>
                 
                 <div className="flex-1 min-w-0">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-ink leading-tight tracking-tight">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-slate-900 leading-tight tracking-tight">
                     {form.questions[currentIndex].title}
-                    {form.questions[currentIndex].required && <span className="text-[#6547db] ml-2">*</span>}
+                    {form.questions[currentIndex].required && <span className="text-indigo-600 ml-1.5">*</span>}
                   </h2>
                   
                   {form.questions[currentIndex].description && (
@@ -235,7 +237,7 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                       <input
                         ref={inputRef as any}
                         type={form.questions[currentIndex].type === 'email' ? 'email' : form.questions[currentIndex].type === 'number' ? 'number' : 'text'}
-                        className="w-full text-2xl md:text-3xl bg-transparent border-b-2 border-[#6547db]/20 py-4 outline-none focus:border-[#6547db] transition-colors placeholder:text-gray-300 font-medium"
+                        className="w-full text-2xl md:text-3xl bg-transparent border-b-2 border-slate-200 py-4 outline-none focus:border-indigo-600 transition-colors placeholder:text-slate-300 font-medium text-slate-900"
                         placeholder="Type your answer here..."
                         value={answers[form.questions[currentIndex].id.toString()] || ''}
                         onChange={(e) => handleAnswer(form.questions[currentIndex].id.toString(), e.target.value)}
@@ -246,7 +248,7 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                       <textarea
                         ref={inputRef as any}
                         rows={4}
-                        className="w-full text-xl md:text-2xl bg-transparent border-b-2 border-[#6547db]/20 py-4 outline-none focus:border-[#6547db] transition-colors placeholder:text-gray-300 font-medium resize-none"
+                        className="w-full text-xl md:text-2xl bg-transparent border-b-2 border-slate-200 py-4 outline-none focus:border-indigo-600 transition-colors placeholder:text-slate-300 font-medium resize-none text-slate-900"
                         placeholder="Type your answer here..."
                         value={answers[form.questions[currentIndex].id.toString()] || ''}
                         onChange={(e) => handleAnswer(form.questions[currentIndex].id.toString(), e.target.value)}
@@ -264,18 +266,18 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                                 handleAnswer(form.questions[currentIndex].id.toString(), opt);
                                 setTimeout(goToNext, 300);
                               }}
-                              className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left group ${
+                              className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left group cursor-pointer ${
                                 isSelected 
-                                  ? 'border-[#6547db] bg-[#6547db]/5' 
-                                  : 'border-transparent bg-white/60 hover:bg-white hover:shadow-md'
+                                  ? 'border-indigo-600 bg-indigo-50/50' 
+                                  : 'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 shadow-xs'
                               }`}
                             >
-                              <div className={`w-8 h-8 rounded border flex items-center justify-center text-sm font-bold transition-colors ${
-                                isSelected ? 'bg-[#6547db] border-[#6547db] text-white' : 'border-gray-300 text-gray-500 group-hover:border-[#6547db]/50'
+                              <div className={`w-8 h-8 rounded-lg border flex items-center justify-center text-sm font-bold transition-colors ${
+                                isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-slate-300 text-slate-500 group-hover:border-indigo-500/50'
                               }`}>
                                 {String.fromCharCode(65 + i)}
                               </div>
-                              <span className={`text-lg font-medium ${isSelected ? 'text-[#6547db]' : 'text-gray-700'}`}>{opt}</span>
+                              <span className={`text-lg font-medium ${isSelected ? 'text-indigo-950 font-bold' : 'text-slate-700'}`}>{opt}</span>
                             </button>
                           );
                         })}
@@ -293,16 +295,16 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                                 handleAnswer(form.questions[currentIndex].id.toString(), opt);
                                 setTimeout(goToNext, 300);
                               }}
-                              className={`flex-1 flex flex-col items-center gap-2 py-8 rounded-xl border-2 transition-all ${
-                                isSelected ? 'border-[#6547db] bg-[#6547db]/5' : 'border-transparent bg-white/60 hover:bg-white hover:shadow-md'
+                              className={`flex-1 flex flex-col items-center gap-2 py-8 rounded-xl border-2 transition-all cursor-pointer ${
+                                isSelected ? 'border-indigo-600 bg-indigo-50/50' : 'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 shadow-xs'
                               }`}
                             >
-                              <div className={`w-10 h-10 rounded border flex items-center justify-center font-bold transition-colors ${
-                                isSelected ? 'bg-[#6547db] border-[#6547db] text-white' : 'border-gray-300 text-gray-500'
+                              <div className={`w-10 h-10 rounded-lg border flex items-center justify-center font-bold transition-colors ${
+                                isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-slate-300 text-slate-500'
                               }`}>
                                 {opt.charAt(0)}
                               </div>
-                              <span className={`text-xl font-bold ${isSelected ? 'text-[#6547db]' : 'text-gray-700'}`}>{opt}</span>
+                              <span className={`text-xl font-bold ${isSelected ? 'text-indigo-950' : 'text-slate-700'}`}>{opt}</span>
                             </button>
                           );
                         })}
@@ -321,8 +323,8 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                                 handleAnswer(form.questions[currentIndex].id.toString(), val);
                                 setTimeout(goToNext, 300);
                               }}
-                              className={`w-14 h-16 md:w-16 md:h-20 rounded-xl border-2 flex items-center justify-center text-xl md:text-2xl font-bold transition-all ${
-                                isSelected ? 'border-[#6547db] bg-[#6547db] text-white scale-110 shadow-lg' : 'border-transparent bg-white/60 text-gray-500 hover:bg-white hover:scale-105'
+                              className={`w-14 h-16 md:w-16 md:h-20 rounded-xl border-2 flex items-center justify-center text-xl md:text-2xl font-bold transition-all cursor-pointer ${
+                                isSelected ? 'border-indigo-600 bg-indigo-600 text-white scale-105 shadow-md' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:scale-105 shadow-xs'
                               }`}
                             >
                               {val}
@@ -340,7 +342,7 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                         initial={{ opacity: 0, x: -10 }} 
                         animate={{ opacity: 1, x: 0 }} 
                         exit={{ opacity: 0 }}
-                        className="mt-6 flex items-center gap-2 text-red-600 bg-red-50 p-3 rounded-lg font-medium inline-flex"
+                        className="mt-6 flex items-center gap-2 text-rose-600 bg-rose-50 border border-rose-200 p-3 rounded-lg font-medium inline-flex text-sm"
                       >
                         <AlertCircle size={18} /> {error}
                       </motion.div>
@@ -352,13 +354,13 @@ export default function RespondentPage({ params }: { params: Promise<{ slug: str
                     <button 
                       onClick={goToNext}
                       disabled={submitting}
-                      className="bg-[#6547db] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#5436c0] transition-colors flex items-center gap-2 text-lg shadow-md disabled:opacity-50 cursor-pointer"
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg transition-colors flex items-center gap-2 text-lg shadow-md disabled:opacity-50 cursor-pointer"
                     >
                       {currentIndex === form.questions.length - 1 ? (submitting ? 'Submitting...' : 'Submit') : 'OK'} 
                       {currentIndex !== form.questions.length - 1 && <Check size={20} />}
                     </button>
-                    <span className="text-xs font-medium text-gray-400">
-                      Press <strong>Enter ↵</strong>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1">
+                      Press <strong className="font-bold text-slate-700">Enter <CornerDownLeft size={13} className="inline ml-0.5" /></strong>
                     </span>
                   </div>
                 </div>

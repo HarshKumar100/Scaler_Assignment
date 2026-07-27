@@ -4,7 +4,7 @@ import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { api, Form, FormStats, FormResponse } from '../../../../lib/api';
-import { ArrowLeft, Download, Eye, X, ListFilter, BarChart3, User, Mail, Star, MessageSquare, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Download, Eye, X, ListFilter, BarChart3, User, Mail, Star, MessageSquare, ArrowRight, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type Tab = 'summary' | 'responses';
@@ -159,23 +159,23 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-cream">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFA]">
       {/* Nav */}
-      <nav className="nav justify-between bg-white px-6 border-b border-gray-200">
+      <nav className="h-16 bg-white px-6 border-b border-slate-200 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center gap-4">
-          <Link href={`/`} className="text-gray-500 hover:text-ink transition-colors flex items-center gap-2 text-sm font-medium">
+          <Link href={`/`} className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-medium">
             <ArrowLeft size={16} /> Back
           </Link>
-          <div className="h-6 w-px bg-gray-300"></div>
-          <Link href={`/forms/${form.id}/build`} className="text-gray-500 hover:text-ink transition-colors flex items-center gap-2 text-sm font-medium">
+          <div className="h-5 w-px bg-slate-200"></div>
+          <Link href={`/forms/${form.id}/build`} className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-medium">
             Edit Form
           </Link>
-          <div className="h-6 w-px bg-gray-300"></div>
-          <h1 className="font-bold text-lg text-ink truncate max-w-sm">{form.title}</h1>
+          <div className="h-5 w-px bg-slate-200"></div>
+          <h1 className="font-bold text-base text-slate-900 truncate max-w-sm">{form.title}</h1>
         </div>
         <button 
           onClick={handleExportCSV} 
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#6547db] hover:bg-[#5436c0] text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-sm shadow-[#6547db]/20 cursor-pointer active:scale-95"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-lg transition-all duration-200 shadow-xs cursor-pointer active:scale-95"
         >
           <Download size={16} /> Export CSV
         </button>
@@ -525,16 +525,16 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                           ans?.type === 'rating' ? (
                             renderStars(val)
                           ) : ans?.type === 'yes_no' ? (
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold border">
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg font-bold border text-sm">
                               {String(val).toLowerCase() === 'yes' ? (
                                 <>
-                                  <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">✓</div>
-                                  <span className="text-emerald-700">Yes</span>
+                                  <div className="w-5 h-5 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center"><Check size={12} /></div>
+                                  <span className="text-emerald-700 font-semibold">Yes</span>
                                 </>
                               ) : (
                                 <>
-                                  <div className="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center">✕</div>
-                                  <span className="text-red-700">No</span>
+                                  <div className="w-5 h-5 rounded-md bg-rose-100 text-rose-600 flex items-center justify-center"><X size={12} /></div>
+                                  <span className="text-rose-700 font-semibold">No</span>
                                 </>
                               )}
                             </div>

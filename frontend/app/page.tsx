@@ -247,20 +247,20 @@ export default function DashboardPage() {
   const draftCount = forms.filter(f => f.status === 'draft').length;
 
   return (
-    <div className="min-h-screen bg-[#FFFAF2] text-slate-900 pb-16 w-full overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAFA] text-slate-900 pb-16 w-full overflow-x-hidden">
       {/* Top Navbar */}
-      <nav className="h-16 bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+      <nav className="h-16 bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-8 h-full flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-700 to-emerald-600 flex items-center justify-center text-white font-black text-xl shadow-xs tracking-tight">
+            <div className="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white font-black text-xl shadow-xs tracking-tight">
               F
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-800">formly</span>
+            <span className="text-xl font-bold tracking-tight text-slate-900">formly</span>
           </div>
 
           <button 
             onClick={handleCreateForm} 
-            className="inline-flex items-center gap-2 px-4 py-2 bg-teal-700 hover:bg-teal-800 active:scale-95 text-white font-medium text-sm rounded-lg transition-all shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white font-medium text-sm rounded-lg transition-all shadow-xs"
           >
             <Plus size={18} /> New Form
           </button>
